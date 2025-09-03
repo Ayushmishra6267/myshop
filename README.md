@@ -6,7 +6,7 @@ It provides a clean, responsive, and fast shopping experience with features like
 ---
 
 ##Live Link
-- [MyShop]((https://myshop-vlny.vercel.app/))
+- [MyShop](https://myshop-vlny.vercel.app/)
 
   
 ---
