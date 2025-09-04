@@ -1,76 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import { IoMdSearch } from "react-icons/io";
 import { FaCaretDown, FaCartShopping } from "react-icons/fa6";
 import Darkmode from "./Darkmode";
 
 const MenuLinks = [
-  {
-    id: 1,
-    name: "Home",
-    link: "/#",
-  },
-  {
-    id: 2,
-    name: "Shop",
-    link: "/#shop",
-  },
-  {
-    id: 3,
-    name: "About",
-    link: "/#about",
-  },
-  {
-    id: 4,
-    name: "Blogs",
-    link: "/#blog",
-  },
+  { id: 1, name: "Home", link: "/#" },
+  { id: 2, name: "Shop", link: "/#shop" },
+  { id: 3, name: "About", link: "/#about" },
+  { id: 4, name: "Blogs", link: "/#blog" },
 ];
+
 const DropdownLinks = [
-  {
-    id: 1,
-    name: "Trending Products",
-    link: "/#",
-  },
-
-  {
-    id: 2,
-    name: "Best Selling",
-    link: "/#",
-  },
-
-  {
-    id: 3,
-    name: "Top Rated",
-    link: "/#",
-  },
-
-
-  {
-    id:4,
-    name:"Liked Product",
-    link:"/#",
-  },
-
+  { id: 1, name: "Trending Products", link: "/#" },
+  { id: 2, name: "Best Selling", link: "/#" },
+  { id: 3, name: "Top Rated", link: "/#" },
+  { id: 4, name: "Liked Product", link: "/#" },
 ];
+
 const Navbar = () => {
+  const [active, setActive] = useState(false);
+
   return (
-    <div
-      className="bg-white dark:bg-gray-900
-   dark:text-white duration-200 relative z-40"
-    >
+    <div className="bg-white dark:bg-gray-900 dark:text-white duration-200 relative z-40">
       <div className="py-4">
-        <div className="container flex justify-between">
-          <div className="flex item-center gap-4">
+        <div className="container flex justify-between items-center">
+          <div className="flex items-center gap-4">
             <a
               href="#"
               className="text-primary font-semibold tracking-widest text-2xl uppercase sm:text-3xl"
             >
               MyShop
             </a>
+
             <div className="hidden lg:block">
               <ul className="flex items-center gap-4">
-                {MenuLinks.map((data, index) => (
-                  <li key={index}>
+                {MenuLinks.map((data) => (
+                  <li key={data.id}>
                     <a
                       href={data.link}
                       className="inline-block px-4 font-semibold text-gray-500 hover:text-black dark:hover:text-white duration-200"
@@ -79,7 +44,6 @@ const Navbar = () => {
                     </a>
                   </li>
                 ))}
-                {/*dropdown*/}
 
                 <li className="relative cursor-pointer group">
                   <a
@@ -87,14 +51,12 @@ const Navbar = () => {
                     className="flex items-center gap-[2px] font-semibold text-gray-500 dark:hover:text-white py-2"
                   >
                     Quick Links
-                    <span>
-                      <FaCaretDown className="group-hover:rotate-180 duration-300" />
-                    </span>
+                    <FaCaretDown className="group-hover:rotate-180 duration-300" />
                   </a>
-                  <div className="absolute z-[9999] hidden group-hover:block w-[150px]rounded-md bg-white shadow-md dark:bg-gray-900 p-2 dark:text-white">
+                  <div className="absolute z-[9999] hidden group-hover:block w-[150px] rounded-md bg-white shadow-md dark:bg-gray-900 p-2 dark:text-white">
                     <ul className="space-y-2">
-                      {DropdownLinks.map((data, index) => (
-                        <li>
+                      {DropdownLinks.map((data) => (
+                        <li key={data.id}>
                           <a
                             className="text-gray-500 hover:text-black dark:hover:text-white duration-200 inline-block p-2 hover:bg-primary/20 rounded-md font-semibold"
                             href={data.link}
@@ -109,20 +71,27 @@ const Navbar = () => {
               </ul>
             </div>
           </div>
-          <div className="flex justify-between items-center gap-4">
-            <div className="relative group hidden sm:block">
+
+          <div className="flex items-center gap-4">
+            <div className="relative group hidden md:block">
               <input
                 type="text"
                 placeholder="Search"
-                className="
-               search-bar
-              "
+                className="search-bar pr-10"
               />
-              <IoMdSearch className="text-xl text-gray-600 group-hover:text-primary dark:text-gray-400 absolute top-1/2 -translate-y-1/2 right-3 duration-200" />
+              <IoMdSearch className="text-xl text-gray-600 dark:text-gray-400 absolute top-1/2 right-3 -translate-y-1/2 group-hover:text-primary duration-200" />
             </div>
+
+            <button
+              onClick={() => setActive(!active)}
+              className="block md:hidden"
+            >
+              <IoMdSearch className="text-2xl text-gray-600 dark:text-gray-400" />
+            </button>
+
             <button className="relative p-3">
               <FaCartShopping className="text-xl text-gray-600 dark:text-gray-400" />
-              <div className="w-4 h-4 bg-red-500 text-white rounded-full absolute top-0 right-0 flex-items-center justify-center text-xs">
+              <div className="w-4 h-4 bg-red-500 text-white rounded-full absolute top-0 right-0 flex items-center justify-center text-xs">
                 4
               </div>
             </button>
@@ -130,6 +99,16 @@ const Navbar = () => {
             <Darkmode />
           </div>
         </div>
+
+        {active && ( 
+          <div className="md:hidden px-3 mt-2">
+            <input
+              type="text"
+              placeholder="Search here..."
+              className="w-full rounded-full py-2 pl-4 pr-10 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:outline-none"
+            />
+          </div>
+        )}
       </div>
     </div>
   );
